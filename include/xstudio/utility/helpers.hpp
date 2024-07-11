@@ -126,12 +126,12 @@ namespace utility {
     }
 
 
-    inline std::vector<caf::byte> hex_to_bytes(const std::string &hex) {
-        std::vector<caf::byte> bytes;
+    inline std::vector<std::byte> hex_to_bytes(const std::string &hex) {
+        std::vector<std::byte> bytes;
 
         for (unsigned int i = 0; i < hex.length(); i += 2) {
             bytes.push_back(
-                static_cast<caf::byte>(strtol(hex.substr(i, 2).c_str(), nullptr, 16)));
+                static_cast<std::byte>(strtol(hex.substr(i, 2).c_str(), nullptr, 16)));
         }
 
         return bytes;
@@ -248,7 +248,7 @@ namespace utility {
     inline std::array<uint8_t, 16> get_signature(const caf::uri &uri) {
         std::array<uint8_t, 16> sig{};
         // read header.. caller myse use try block to catch errors
-        if (to_string(uri.scheme()) != "file")
+        if (uri.scheme() != "file")
             return sig;
 
         std::ifstream myfile;
@@ -287,8 +287,7 @@ namespace utility {
             fallback_root     = xstudio_root.string();
         }
         #else
-        //TODO: This could inspect the current running process and look one directory up.
-        fallback_root   = std::string(BINARY_DIR);
+        std::string fallback_root = "/usr/local/share/xstudio";
         #endif
 
 
@@ -382,7 +381,6 @@ inline std::string snippets_path(const std::string &append_path = "") {
     inline std::string get_path_extension(const fs::path p)
     {
         const std::string sp = p.string();
-#ifdef _WIN32
         std::string sanitized;
 
         try {
@@ -395,9 +393,6 @@ inline std::string snippets_path(const std::string &append_path = "") {
         fs::path pth(sanitized);
         std::string ext = pth.extension().string(); // Convert path extension to string
         return ext;
-#else
-        return sp.extension().string();
-#endif
     }
 
 

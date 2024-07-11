@@ -174,7 +174,11 @@ if(WIN32)
 
   # When moving to Qt6 or greater, we might be able to use qt_generate_deploy_app_script
   #set(deploy_script "${Qt5_DIR}/../../../windeployqt.exe  )
+else()
+  add_subdirectory("extern/quickpromise")
+  add_subdirectory("extern/quickfuture")
 endif()
+
 
 if(MSVC)
   #Getenv complains, would be good to fix later but tired of seeing this for now.

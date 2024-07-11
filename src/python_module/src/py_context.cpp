@@ -139,7 +139,7 @@ py::tuple py_context::py_tuple_from_wrapped_message(const py::args &xs) {
 
         for (size_t i = 0; i < msg.size(); ++i) {
             auto tid = msg.type_at(i);
-            if (auto meta_obj = detail::global_meta_object(tid)) {
+            if (auto meta_obj = detail::global_meta_object_or_null(tid)) {
                 auto kvp = portable_bindings().find(to_string(meta_obj->type_name));
                 if (kvp == portable_bindings().end()) {
                     set_py_exception(
@@ -204,7 +204,7 @@ py::tuple py_context::tuple_from_message(
 
     for (size_t i = 0; i < msg.size(); ++i) {
         auto tid = msg.type_at(i);
-        if (auto meta_obj = detail::global_meta_object(tid)) {
+        if (auto meta_obj = detail::global_meta_object_or_null(tid)) {
             auto kvp = portable_bindings().find(to_string(meta_obj->type_name));
             if (kvp == portable_bindings().end()) {
                 set_py_exception(

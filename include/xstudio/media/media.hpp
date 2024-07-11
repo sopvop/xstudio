@@ -58,6 +58,10 @@ namespace media {
         return str;
     }
 
+    template <class Inspector> bool inspect(Inspector &f, MediaStatus &x) {
+        return inspect(f, reinterpret_cast<int&>(x));
+    }
+
 
     class StreamDetail {
       public:
@@ -139,52 +143,52 @@ namespace media {
         utility::Timecode timecode_;
     };
 
-    class MediaKey : private std::string {
-
+    class MediaKey {
+      std::string v;
       public:
         MediaKey()                  = default;
         MediaKey(const MediaKey &o) = default;
-        MediaKey(const std::string &o) : std::string(o) {}
+        MediaKey(const std::string &o) : v(o) {}
         MediaKey(
             const std::string &key_format,
             const caf::uri &uri,
             const int frame,
             const std::string &stream_id)
-            : std::string(fmt::format(
+            : v(fmt::format(
                   key_format,
                   to_string(uri),
                   (frame == std::numeric_limits<int>::min() ? 0 : frame),
                   stream_id)) {}
 
         bool operator==(const MediaKey &o) const {
-            return static_cast<const std::string &>(o) ==
-                   static_cast<const std::string &>(*this);
+            return v == o.v;
         }
 
         bool operator!=(const MediaKey &o) const {
-            return static_cast<const std::string &>(o) !=
-                   static_cast<const std::string &>(*this);
+            return v != o.v;
         }
 
         bool operator<(const MediaKey &o) const {
-            return static_cast<const std::string &>(o) <
-                   static_cast<const std::string &>(*this);
+            return o.v < v;
         }
 
         friend std::string to_string(const MediaKey &value);
         friend fmt::string_view to_string_view(const MediaKey &value);
+        friend std::string_view format_as(const MediaKey &value);
 
         template <class Inspector> friend bool inspect(Inspector &f, MediaKey &x) {
-            return f.object(x).fields(f.field("data", static_cast<std::string &>(x)));
+            return f.object(x).fields(f.field("data", x.v));
         }
     };
 
-    inline std::string to_string(const MediaKey &v) {
-        return static_cast<const std::string>(v);
+    inline std::string to_string(const MediaKey &s) {
+        return s.v;
     }
 
-    inline fmt::string_view to_string_view(const MediaKey &s) { return {s.data(), s.length()}; }
-
+    inline fmt::string_view to_string_view(const MediaKey &s) { return fmt::string_view(s.v); }
+    inline std::string_view format_as(const MediaKey &s) {
+        return std::string_view(s.v);
+    }
     typedef std::vector<MediaKey> MediaKeyVector;
 
     inline MediaKey media_key(

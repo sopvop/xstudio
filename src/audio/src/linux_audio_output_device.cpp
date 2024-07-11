@@ -86,7 +86,7 @@ long LinuxAudioOutputDevice::latency_microseconds() {
 }
 
 
-void LinuxAudioOutputDevice::push_samples(const void *sample_data, const long num_samples, int channel_count) {
+void LinuxAudioOutputDevice::push_samples(const void *sample_data, const long num_samples) {
 
     int error;
     if (playback_handle_ &&

@@ -49,7 +49,7 @@ target_link_libraries(${PROJECT_NAME}
 		xstudio::ui::qml::module
 		xstudio::ui::qml::playhead
 		xstudio::ui::model_data
-		xstudio::ui::qml::quickfuture
+		quickfuture
 		xstudio::ui::qml::session
 		xstudio::ui::qml::studio
 		xstudio::ui::qml::tag
