@@ -12,5 +12,13 @@ namespace timeline {
         IT_STACK       = 0x5L,
         IT_TIMELINE    = 0x6L
     } ItemType;
+    template <class Inspector> bool inspect(Inspector &f, ItemType &x) {
+        auto get = [&x]{ return static_cast<int>(x); };
+        auto set = [&x](int v) {
+            x = static_cast<ItemType>(v);
+            return true;
+        };
+        return f.apply(get, set);
+    }
 }
 } // namespace xstudio

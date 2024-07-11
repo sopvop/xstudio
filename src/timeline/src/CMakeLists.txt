@@ -1,5 +1,5 @@
 
-find_package(OpenTime REQUIRED)
+#find_package(OpenTime REQUIRED)
 find_package(OpenTimelineIO REQUIRED)
 find_package(Imath)
 

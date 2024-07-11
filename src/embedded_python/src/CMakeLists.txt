@@ -5,7 +5,7 @@ find_package(pybind11 REQUIRED)  # or `add_subdirectory(pybind11)`
 find_package(spdlog REQUIRED)
 find_package(fmt REQUIRED)
 find_package(Imath)
-find_package(OpenTime REQUIRED)
+#find_package(OpenTime REQUIRED)
 find_package(OpenTimelineIO REQUIRED)
 
 set(SOURCES

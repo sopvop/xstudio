@@ -267,7 +267,7 @@ void process_item(
 
 void timeline_importer(
     blocking_actor *self,
-    caf::response_promise rp,
+    caf::typed_response_promise<bool> rp,
     const caf::actor &playlist,
     const UuidActor &dst,
     const std::string &data) {

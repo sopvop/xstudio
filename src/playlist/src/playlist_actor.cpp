@@ -35,7 +35,7 @@ using namespace nlohmann;
 
 void blocking_loader(
     blocking_actor *self,
-    caf::response_promise rp,
+    caf::typed_response_promise<std::vector<UuidActor>> rp,
     UuidActor dst,
     const caf::uri &path,
     const bool recursive,

@@ -927,6 +927,7 @@ OCIO::ConstGpuShaderDescRcPtr OCIOColourPipeline::make_shader(
     shader_desc->setLanguage(OCIO::GPU_LANGUAGE_GLSL_4_0);
     shader_desc->setFunctionName(function_name);
     shader_desc->setResourcePrefix(resource_prefix);
+    shader_desc->setAllowTexture1D(false);
     auto gpu_proc = processor->getDefaultGPUProcessor();
     gpu_proc->extractGpuShaderInfo(shader_desc);
     return shader_desc;
@@ -979,11 +980,12 @@ void OCIOColourPipeline::setup_textures(
         const char *samplerName                  = nullptr;
         unsigned width                           = 0;
         unsigned height                          = 0;
+        OCIO::GpuShaderDesc::TextureDimensions dimensions = OCIO::GpuShaderDesc::TextureDimensions::TEXTURE_2D;
         OCIO::GpuShaderDesc::TextureType channel = OCIO::GpuShaderDesc::TEXTURE_RGB_CHANNEL;
         OCIO::Interpolation interpolation        = OCIO::INTERP_LINEAR;
 
         shader_desc->getTexture(
-            idx, textureName, samplerName, width, height, channel, interpolation);
+            idx, textureName, samplerName, width, height, channel, dimensions, interpolation);
 
         if (!textureName || !*textureName || !samplerName || !*samplerName || width == 0) {
             throw std::runtime_error(

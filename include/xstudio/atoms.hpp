@@ -762,7 +762,107 @@ inline auto make_get_version_handler() {
 }
 } // namespace xstudio::utility
 
+template <class Inspector, class T>
+bool x_enum_inspect(Inspector &f, T &x) {
+    auto get = [&x]{ return static_cast<int>(x); };
+    auto set = [&x](int v) {
+        x = static_cast<T>(v);
+        return true;
+    };
+    return f.apply(get, set);
+}
+
+namespace xstudio::media {
+template <class Inspector>
+bool inspect(Inspector &f, MediaStatus &x) {
+    return x_enum_inspect(f,x);
+}
+template <class Inspector>
+bool inspect(Inspector &f, MediaType &x) {
+    return x_enum_inspect(f,x);
+}
+}
+
+namespace xstudio::media_metadata {
+template <class Inspector>
+bool inspect(Inspector &f, MMCertainty &x) {
+    return x_enum_inspect(f,x);
+}
+}
+
+namespace xstudio::media_reader {
+template <class Inspector>
+bool inspect(Inspector &f, MRCertainty &x) {
+    return x_enum_inspect(f,x);
+}
+}
+
+namespace xstudio::global {
+template <class Inspector>
+bool inspect(Inspector &f, StatusType &x) {
+    return x_enum_inspect(f,x);
+}
+}
+
+namespace xstudio::playhead {
+template <class Inspector>
+bool inspect(Inspector &f, LoopMode &x) {
+    return x_enum_inspect(f,x);
+}
+template <class Inspector>
+bool inspect(Inspector &f, OverflowMode &x) {
+    return x_enum_inspect(f,x);
+}
+template <class Inspector>
+bool inspect(Inspector &f, CompareMode &x) {
+    return x_enum_inspect(f,x);
+}
+}
+
+namespace xstudio::plugin_manager {
+template <class Inspector>
+bool inspect(Inspector &f, PluginType &x) {
+    return x_enum_inspect(f,x);
+}
+}
+
+namespace xstudio::session {
+template <class Inspector>
+bool inspect(Inspector &f, ExportFormat &x) {
+    return x_enum_inspect(f,x);
+}
+}
+namespace xstudio::shotgun_client {
+template <class Inspector>
+bool inspect(Inspector &f, AUTHENTICATION_METHOD &x) {
+    return x_enum_inspect(f,x);
+}
+}
+
+namespace xstudio::thumbnail {
+template <class Inspector>
+bool inspect(Inspector &f, THUMBNAIL_FORMAT &x) {
+    return x_enum_inspect(f,x);
+}
+}
+
+namespace xstudio::ui::viewport {
+template <class Inspector>
+bool inspect(Inspector &f, FitMode &x) {
+    return x_enum_inspect(f,x);
+}
+}
+namespace xstudio::utility {
+template <class Inspector>
+bool inspect(Inspector &f, TimeSourceMode &x) {
+    return x_enum_inspect(f,x);
+}
+}
+
 namespace semver {
+template <class Inspector> bool inspect(Inspector &f, prerelease &x) {
+    return x_enum_inspect(f,x);
+}
 template <class Inspector> bool inspect(Inspector &f, version &x) {
     return f.object(x).fields(
         f.field("major", x.major),

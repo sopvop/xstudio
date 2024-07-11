@@ -72,7 +72,14 @@ namespace ui {
             out << (int)o.type_ << " " << (int)o.buttons_ << " " << (int)o.modifiers_;
             return out;
         }
-
+        template <class Inspector> friend bool inspect(Inspector &f, EventType &x) {
+            auto get = [&x]{ return static_cast<int>(x); };
+            auto set = [&x](int v) {
+                x = static_cast<EventType>(v);
+                return true;
+            };
+            return f.apply(get, set);
+        }
         template <class Inspector> friend bool inspect(Inspector &f, Signature &x) {
             return f.object(x).fields(
                 f.field("type", x.type_),

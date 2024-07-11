@@ -247,7 +247,7 @@ namespace utility {
     inline std::array<uint8_t, 16> get_signature(const caf::uri &uri) {
         std::array<uint8_t, 16> sig{};
         // read header.. caller myse use try block to catch errors
-        if (to_string(uri.scheme()) != "file")
+        if (uri.scheme() != "file")
             return sig;
 
         std::ifstream myfile;

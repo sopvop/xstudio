@@ -570,11 +570,6 @@ FFMpegStream::FFMpegStream(
             "avcodec_parameters_to_context");
         if (avc_stream_->codecpar->codec_tag == MKTAG('t', 'm', 'c', 'd')) {
             stream_type_ = TIMECODE_STREAM;
-            if (codec_context_->flags2 & AV_CODEC_FLAG2_DROP_FRAME_TIMECODE) {
-                is_drop_frame_timecode_ = true;
-            } else {
-                is_drop_frame_timecode_ = false;
-            }
         }
 
     } else if (codec_type_ == AVMEDIA_TYPE_VIDEO && codec_) {

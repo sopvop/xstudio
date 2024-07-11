@@ -11,7 +11,7 @@ find_package(GLEW REQUIRED)
 find_package(Qt5 COMPONENTS Core Quick Gui Widgets OpenGL REQUIRED)
 find_package(OpenSSL)
 find_package(ZLIB)
-find_package(OpenTime REQUIRED)
+#find_package(OpenTime REQUIRED)
 find_package(OpenTimelineIO REQUIRED)
 
 set(CMAKE_AUTOUIC ON)

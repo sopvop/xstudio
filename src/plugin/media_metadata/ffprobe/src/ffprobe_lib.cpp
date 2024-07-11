@@ -574,7 +574,7 @@ std::shared_ptr<MediaFile> FFProbe::open_file(const std::string &path) {
             if (not codec) {
                 spdlog::debug(
                     "Unsupported codec with id {} for input stream {}",
-                    stream->codecpar->codec_id,
+                    avcodec_get_name(stream->codecpar->codec_id),
                     stream->index);
                 continue;
             }
