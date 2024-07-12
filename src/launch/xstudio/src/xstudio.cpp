@@ -798,7 +798,7 @@ int main(int argc, char **argv) {
                     std::this_thread::sleep_for(1s);
                 }
                 // cancel inflight events.
-                system.clock().cancel_all();
+                //system.clock().cancel_all(); // No longer part of caf api
                 if (shutdown_xstudio)
                     self->send_exit(l.global_actor, caf::exit_reason::user_shutdown);
                 std::this_thread::sleep_for(1s);
@@ -963,7 +963,7 @@ int main(int argc, char **argv) {
                     }
                 }
                 // cancel actors talking to them selves.
-                system.clock().cancel_all();
+                // system.clock().cancel_all(); // no longer part of caf api
                 self->send_exit(l.global_actor, caf::exit_reason::user_shutdown);
                 std::this_thread::sleep_for(1s);
             }
